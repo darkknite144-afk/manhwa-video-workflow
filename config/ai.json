@@ -1,0 +1,6 @@
+{
+  "enabled": true,
+  "provider": "api",
+  "model": "vision",
+  "max_images_per_request": 4
+}
