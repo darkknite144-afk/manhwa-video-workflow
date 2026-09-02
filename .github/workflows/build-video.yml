@@ -11,7 +11,6 @@ on:
       - "requirements.txt"
       - ".github/workflows/build-video.yml"
 
-
 jobs:
   build-video:
 
@@ -21,17 +20,8 @@ jobs:
 
     steps:
 
-      # ---------------------------------------------------
-      # 1. CHECKOUT REPOSITORY
-      # ---------------------------------------------------
-
       - name: Checkout repository
         uses: actions/checkout@v4
-
-
-      # ---------------------------------------------------
-      # 2. SETUP PYTHON
-      # ---------------------------------------------------
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -39,76 +29,40 @@ jobs:
           python-version: "3.11"
           cache: "pip"
 
-
-      # ---------------------------------------------------
-      # 3. INSTALL FFMPEG
-      # ---------------------------------------------------
-
       - name: Install FFmpeg
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg
-
-
-      # ---------------------------------------------------
-      # 4. INSTALL PYTHON DEPENDENCIES
-      # ---------------------------------------------------
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-
-      # ---------------------------------------------------
-      # 5. CREATE REQUIRED DIRECTORIES
-      # ---------------------------------------------------
-
       - name: Prepare directories
         run: |
           mkdir -p data
           mkdir -p output
 
-
-      # ---------------------------------------------------
-      # 6. TRANSCRIBE AUDIO
-      # ---------------------------------------------------
-
       - name: Transcribe audio
         run: |
           python scripts/transcribe.py
 
-
-      # ---------------------------------------------------
-      # 7. MATCH IMAGES TO SCENES
-      # ---------------------------------------------------
+      - name: AI Scene Matching
+        run: |
+          python scripts/ai_scene_match.py
 
       - name: Match scenes
         run: |
           python scripts/match_scenes.py
 
-
-      # ---------------------------------------------------
-      # 8. GENERATE TIMELINE
-      # ---------------------------------------------------
-
       - name: Generate timeline
         run: |
           python scripts/generate_timeline.py
 
-
-      # ---------------------------------------------------
-      # 9. RENDER VIDEO
-      # ---------------------------------------------------
-
       - name: Render video
         run: |
           python scripts/render.py
-
-
-      # ---------------------------------------------------
-      # 10. UPLOAD FINAL VIDEO
-      # ---------------------------------------------------
 
       - name: Upload final video
         uses: actions/upload-artifact@v4
@@ -117,11 +71,6 @@ jobs:
           path: output/final_manhwa_short.mp4
           if-no-files-found: error
 
-
-      # ---------------------------------------------------
-      # 11. UPLOAD TIMELINE DATA
-      # ---------------------------------------------------
-
       - name: Upload project data
         uses: actions/upload-artifact@v4
         with:
@@ -129,4 +78,5 @@ jobs:
           path: |
             data/transcript.json
             data/scenes.json
+            data/scenes_ai.json
             data/timeline.json
