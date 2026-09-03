@@ -1,9 +1,9 @@
 {
   "project": {
     "name": "manhwa-shorts",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "description": "AI-assisted Manhwa Shorts video production pipeline"
   },
-
   "video": {
     "width": 1080,
     "height": 1920,
@@ -11,17 +11,31 @@
     "format": "mp4",
     "codec": "libx264",
     "audio_codec": "aac",
-    "audio_bitrate": "192k"
+    "audio_bitrate": "192k",
+    "preset": "medium",
+    "crf": 18,
+    "pixel_format": "yuv420p"
   },
-
   "paths": {
     "audio": "assets/audio",
     "images": "assets/images",
     "script": "assets/script",
+    "sfx": "assets/sfx",
     "data": "data",
     "output": "output"
   },
-
+  "transcription": {
+    "enabled": true,
+    "model": "base",
+    "language": "auto",
+    "word_timestamps": true
+  },
+  "scene_matching": {
+    "enabled": true,
+    "use_script": true,
+    "use_audio_timing": true,
+    "fallback": "sequential"
+  },
   "animation": {
     "enabled": true,
     "min_scale": 1.0,
@@ -30,23 +44,23 @@
     "easing": "ease_in_out",
     "randomize_motion": true
   },
-
   "captions": {
     "enabled": true,
     "max_words": 6,
     "font_size": 64,
-    "position": "bottom"
+    "font_color": "white",
+    "outline_color": "black",
+    "outline_width": 3,
+    "position": "bottom",
+    "margin_v": 80,
+    "animation": "fade"
   },
-
-  "transcription": {
+  "sfx": {
     "enabled": true,
-    "language": "auto",
-    "word_timestamps": true
+    "volume": 0.3
   },
-
-  "scene_matching": {
-    "enabled": true,
-    "use_script": true,
-    "use_audio_timing": true
+  "transitions": {
+    "default": "cut",
+    "duration": 0.0
   }
 }
