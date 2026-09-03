@@ -1,6 +1,32 @@
 {
-  "enabled": true,
-  "provider": "api",
-  "model": "vision",
-  "max_images_per_request": 4
+  "vision": {
+    "enabled": false,
+    "provider": "none",
+    "model": "none",
+    "max_images_per_request": 4,
+    "fallback": "sequential"
+  },
+  "scene_matching": {
+    "use_dialogue_meaning": true,
+    "use_characters": true,
+    "use_expressions": true,
+    "use_actions": true,
+    "use_environment": true,
+    "use_location": true,
+    "use_objects": true,
+    "use_mood": true,
+    "use_emotional_intensity": true,
+    "use_scene_continuity": true
+  },
+  "image_analysis": {
+    "detect_faces": true,
+    "detect_focal_point": true,
+    "detect_mood": true,
+    "detect_action": true
+  },
+  "api": {
+    "base_url": "",
+    "api_key": "",
+    "timeout_seconds": 30
+  }
 }
