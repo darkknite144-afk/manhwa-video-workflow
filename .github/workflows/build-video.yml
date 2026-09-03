@@ -44,11 +44,19 @@ jobs:
           mkdir -p data
           mkdir -p output
 
+      - name: Validate project
+        run: |
+          python scripts/validate_project.py
+
       - name: Transcribe audio
         run: |
           python scripts/transcribe.py
 
-      - name: AI Scene Matching
+      - name: Analyze images
+        run: |
+          python scripts/image_analysis.py
+
+      - name: AI scene matching
         run: |
           python scripts/ai_scene_match.py
 
@@ -59,6 +67,10 @@ jobs:
       - name: Generate timeline
         run: |
           python scripts/generate_timeline.py
+
+      - name: Generate captions
+        run: |
+          python scripts/captions.py
 
       - name: Render video
         run: |
@@ -71,7 +83,7 @@ jobs:
           path: output/final_manhwa_short.mp4
           if-no-files-found: error
 
-      - name: Upload project data
+      - name: Upload generated data
         uses: actions/upload-artifact@v4
         with:
           name: manhwa-project-data
@@ -80,3 +92,5 @@ jobs:
             data/scenes.json
             data/scenes_ai.json
             data/timeline.json
+            data/image_analysis.json
+            data/captions.ass
